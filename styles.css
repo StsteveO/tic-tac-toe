@@ -19,3 +19,11 @@ html {
 
 /* fonts */
 /* font-family: 'Roboto', sans-serif; */
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+table{
+    width:50%;
+    height:50%;
+}
