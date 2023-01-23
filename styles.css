@@ -47,6 +47,12 @@ td{
   background-color: lightblue;
 }
 
+.comp-pick{
+  cursor: not-allowed;
+  pointer-events: none; 
+  background-color: rgb(255, 86, 86);
+}
+
 /* add when clicked on */
 .text{
   text-align: center;

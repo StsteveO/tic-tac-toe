@@ -2,9 +2,9 @@
 //If you only ever need ONE of something (gameBoard, displayController), use a module. 
 //If you need multiples of something (players!), create them with factories.
 const gameboard=(()=>{
-const row1=[0,1,2];
-const row2=[3,4,5];
-const row3=[6,7,8];
+const row1=[ , , ];
+const row2=[ , , ];
+const row3=[ , , ];
 return{row1, row2, row3};
 })();
 // to change marker...gameboard.row1[0]="change";
@@ -52,17 +52,34 @@ const gameFlow=(()=>{
     let gameboardArray=[square.zero, square.one, square.two, square.three, square.four, square.five, square.six, square.seven, square.eight];
     let texts= document.querySelectorAll(".text");
     texts.forEach(text=>text.addEventListener("click", (e)=>{
-        text.classList.remove("pre-click");
-        text.classList.add("post-click");
-        text.textContent="X";
-        let squareChosen= e.path[0];//indiv square html
-        // let gameboardArray=[square.zero, square.one, square.two, square.three, square.four, square.five, square.six, square.seven, square.eight];
-        let indexOfChosenSq= gameboardArray.indexOf(squareChosen);//index num of chosen square
-        gameboardArray.splice(indexOfChosenSq,1);
-        console.log("Index #: "+indexOfChosenSq); 
-        console.log("Array Length: "+gameboardArray.length)
-        console.log(gameboardArray);
-        return {gameboardArray};
+      text.classList.remove("pre-click");
+      text.classList.add("post-click");
+      text.textContent = "X";
+      let squareChosen = e.path[0]; //indiv square html
+      let indexOfChosenSq = gameboardArray.indexOf(squareChosen); //index num of chosen square
+      gameboardArray.splice(indexOfChosenSq, 1);
+
+      console.log(squareChosen.getAttribute("id"));
+      let originalIndexChosen= squareChosen.getAttribute("id");
+      
+      console.log(gameboard);
+
+      if (gameboardArray.length === 0) {
+        console.log("Game Over");
+        return;
+      }
+      // computer picks
+      let computerRandNum = Math.floor(Math.random() * gameboardArray.length);//number computer picked
+      let computerChoice = gameboardArray[computerRandNum]; //html square computer picks
+
+      console.log(computerChoice.getAttribute("id"));
+      let orginalIndexCompChosen = computerChoice.getAttribute("id");
+
+      gameboardArray.splice(computerRandNum, 1);
+      computerChoice.textContent = "O";
+      computerChoice.classList.remove("pre-click");
+      computerChoice.classList.add("comp-pick");
+      return { gameboardArray };
     }));
     return {gameboardArray}
 })();
