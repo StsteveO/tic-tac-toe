@@ -20,16 +20,36 @@ html {
 /* fonts */
 /* font-family: 'Roboto', sans-serif; */
 table, th, td {
-  border: 1px solid black;
+  border: 2px solid black;
   border-collapse: collapse;
 }
 table{
-    width:50%;
-    height:50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+td{
+    width:9rem;
+    height:9rem;
 }
 
-/* example start */
-.row1 .index1{
-  background-color: red;
+/* remove when clicked on */
+.pre-click:hover{ 
+  background-color: rgba(0,0,0,.5);
+  cursor: pointer;
 }
-/* example end */
+
+/* add when clicked on */
+.post-click{
+  cursor: not-allowed;
+  pointer-events: none; 
+  background-color: lightblue;
+}
+
+/* add when clicked on */
+.text{
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bolder;
+}
