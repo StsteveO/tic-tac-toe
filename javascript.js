@@ -2,9 +2,9 @@
 //If you only ever need ONE of something (gameBoard, displayController), use a module. 
 //If you need multiples of something (players!), create them with factories.
 const gameboard=(()=>{
-const row1=[ , , ];
-const row2=[ , , ];
-const row3=[ , , ];
+const row1=[];
+const row2=[];
+const row3=[];
 return{row1, row2, row3};
 })();
 // to change marker...gameboard.row1[0]="change";
@@ -59,21 +59,85 @@ const gameFlow=(()=>{
       let indexOfChosenSq = gameboardArray.indexOf(squareChosen); //index num of chosen square
       gameboardArray.splice(indexOfChosenSq, 1);
 
-      console.log(squareChosen.getAttribute("id"));
-      let originalIndexChosen= squareChosen.getAttribute("id");
-      
-      console.log(gameboard);
+      let originalIndexChosen = squareChosen.getAttribute("id");
+    //   console.log(originalIndexChosen);
+
+      if (originalIndexChosen === "row1[0]") {
+        gameboard.row1[0] = "X";
+      } else if (originalIndexChosen === "row1[1]") {
+        gameboard.row1[1] = "X";
+      } else if (originalIndexChosen === "row1[2]") {
+        gameboard.row1[2] = "X";
+      } else if (originalIndexChosen === "row2[0]") {
+        gameboard.row2[0] = "X";
+      } else if (originalIndexChosen === "row2[1]") {
+        gameboard.row2[1] = "X";
+      } else if (originalIndexChosen === "row2[2]") {
+        gameboard.row2[2] = "X";
+      } else if (originalIndexChosen === "row3[0]") {
+        gameboard.row3[0] = "X";
+      } else if (originalIndexChosen === "row3[1]") {
+        gameboard.row3[1] = "X";
+      } else if (originalIndexChosen === "row3[2]") {
+        gameboard.row3[2] = "X";
+      };
 
       if (gameboardArray.length === 0) {
         console.log("Game Over");
         return;
-      }
+      };
+
+      if((gameboard.row1[0]==="X" && gameboard.row1[1]==="X" && gameboard.row1[2]==="X")
+      || (gameboard.row2[0]==="X" && gameboard.row2[1]==="X" && gameboard.row2[2]==="X")
+      || (gameboard.row3[0]==="X" && gameboard.row3[1]==="X" && gameboard.row3[2]==="X")
+      || (gameboard.row1[0]==="X" && gameboard.row2[0]==="X" && gameboard.row3[0]==="X")
+      || (gameboard.row1[1]==="X" && gameboard.row2[1]==="X" && gameboard.row3[1]==="X")
+      || (gameboard.row1[2]==="X" && gameboard.row2[2]==="X" && gameboard.row3[2]==="X")
+      || (gameboard.row1[0]==="X" && gameboard.row2[1]==="X" && gameboard.row3[2]==="X")
+      || (gameboard.row1[2]==="X" && gameboard.row2[1]==="X" && gameboard.row3[0]==="X")){
+        console.log("YOU WON!")
+      };
+
       // computer picks
-      let computerRandNum = Math.floor(Math.random() * gameboardArray.length);//number computer picked
+      let computerRandNum = Math.floor(Math.random() * gameboardArray.length); //number computer picked
       let computerChoice = gameboardArray[computerRandNum]; //html square computer picks
 
-      console.log(computerChoice.getAttribute("id"));
       let orginalIndexCompChosen = computerChoice.getAttribute("id");
+      gameboard.orginalIndexCompChosen = "O";
+    //   console.log(orginalIndexCompChosen);
+
+      if (orginalIndexCompChosen === "row1[0]") {
+        gameboard.row1[0] = "O";
+      } else if (orginalIndexCompChosen === "row1[1]") {
+        gameboard.row1[1] = "O";
+      } else if (orginalIndexCompChosen === "row1[2]") {
+        gameboard.row1[2] = "O";
+      } else if (orginalIndexCompChosen === "row2[0]") {
+        gameboard.row2[0] = "O";
+      } else if (orginalIndexCompChosen === "row2[1]") {
+        gameboard.row2[1] = "O";
+      } else if (orginalIndexCompChosen === "row2[2]") {
+        gameboard.row2[2] = "O";
+      } else if (orginalIndexCompChosen === "row3[0]") {
+        gameboard.row3[0] = "O";
+      } else if (orginalIndexCompChosen === "row3[1]") {
+        gameboard.row3[1] = "O";
+      } else if (orginalIndexCompChosen === "row3[2]") {
+        gameboard.row3[2] = "O";
+      };
+
+      if((gameboard.row1[0]==="O" && gameboard.row1[1]==="O" && gameboard.row1[2]==="O")
+      || (gameboard.row2[0]==="O" && gameboard.row2[1]==="O" && gameboard.row2[2]==="O")
+      || (gameboard.row3[0]==="O" && gameboard.row3[1]==="O" && gameboard.row3[2]==="O")
+      || (gameboard.row1[0]==="O" && gameboard.row2[0]==="O" && gameboard.row3[0]==="O")
+      || (gameboard.row1[1]==="O" && gameboard.row2[1]==="O" && gameboard.row3[1]==="O")
+      || (gameboard.row1[2]==="O" && gameboard.row2[2]==="O" && gameboard.row3[2]==="O")
+      || (gameboard.row1[0]==="O" && gameboard.row2[1]==="O" && gameboard.row3[2]==="O")
+      || (gameboard.row1[2]==="O" && gameboard.row2[1]==="O" && gameboard.row3[0]==="O")){
+        console.log("YOU LOST!")
+      };
+
+      console.log(gameboard);
 
       gameboardArray.splice(computerRandNum, 1);
       computerChoice.textContent = "O";
