@@ -1,14 +1,10 @@
-// Try tucking everything away inside of a module or factory. 
-//If you only ever need ONE of something (gameBoard, displayController), use a module. 
-//If you need multiples of something (players!), create them with factories.
 const gameboard=(()=>{
 const row1=[];
 const row2=[];
 const row3=[];
 return{row1, row2, row3};
 })();
-// to change marker...gameboard.row1[0]="change";
-//to see change...console.log(gameboard.row1[0]);
+
 const square=(()=>{
     let zero = gameboard.row1[0];
     let one = gameboard.row1[1];
@@ -30,14 +26,7 @@ const square=(()=>{
     eight = document.querySelector(".square8");
     return {zero, one, two, three, four, five, six, seven, eight};
 })();
-// to change color/affect square...square.two.style.cssText= "background-color: blue;";
 
-const jsToHtmlBoard=()=>{
-    //js gameboard to HTML
-};
-const clickSpotForMarker=()=>{
-    //fxn for player to click on gameboard and have marker appear
-};
 const playerFactory=(name, marker)=>{
     return{name,marker};
 };
@@ -46,7 +35,6 @@ const player=(()=>{
     const opp = playerFactory("Zod", "Z");
     return {main, opp};
 })();
-//access players...ex. player.main.name;
 
 const gameFlow=(()=>{
     let gameboardArray=[square.zero, square.one, square.two, square.three, square.four, square.five, square.six, square.seven, square.eight];
@@ -55,12 +43,10 @@ const gameFlow=(()=>{
       text.classList.remove("pre-click");
       text.classList.add("post-click");
       text.textContent = "X";
-      let squareChosen = e.path[0]; //indiv square html
-      let indexOfChosenSq = gameboardArray.indexOf(squareChosen); //index num of chosen square
+      let squareChosen = e.path[0];
+      let indexOfChosenSq = gameboardArray.indexOf(squareChosen);
       gameboardArray.splice(indexOfChosenSq, 1);
-
       let originalIndexChosen = squareChosen.getAttribute("id");
-    //   console.log(originalIndexChosen);
 
       if (originalIndexChosen === "row1[0]") {
         gameboard.row1[0] = "X";
@@ -80,40 +66,54 @@ const gameFlow=(()=>{
         gameboard.row3[1] = "X";
       } else if (originalIndexChosen === "row3[2]") {
         gameboard.row3[2] = "X";
-      };
+      }
+
+      if (
+        (gameboard.row1[0] === "X" &&
+          gameboard.row1[1] === "X" &&
+          gameboard.row1[2] === "X") ||
+        (gameboard.row2[0] === "X" &&
+          gameboard.row2[1] === "X" &&
+          gameboard.row2[2] === "X") ||
+        (gameboard.row3[0] === "X" &&
+          gameboard.row3[1] === "X" &&
+          gameboard.row3[2] === "X") ||
+        (gameboard.row1[0] === "X" &&
+          gameboard.row2[0] === "X" &&
+          gameboard.row3[0] === "X") ||
+        (gameboard.row1[1] === "X" &&
+          gameboard.row2[1] === "X" &&
+          gameboard.row3[1] === "X") ||
+        (gameboard.row1[2] === "X" &&
+          gameboard.row2[2] === "X" &&
+          gameboard.row3[2] === "X") ||
+        (gameboard.row1[0] === "X" &&
+          gameboard.row2[1] === "X" &&
+          gameboard.row3[2] === "X") ||
+        (gameboard.row1[2] === "X" &&
+          gameboard.row2[1] === "X" &&
+          gameboard.row3[0] === "X")
+      ) {
+        let overlay = document.querySelector(".overlay");
+        let winBanner = document.querySelector(".win-banner");
+        overlay.classList.add("active");
+        winBanner.classList.add("active");
+        return;
+      }
 
       if (gameboardArray.length === 0) {
-        console.log("Game Over");
         let overlay = document.querySelector(".overlay");
         let tieBanner = document.querySelector(".tie-banner");
         overlay.classList.add("active");
         tieBanner.classList.add("active");
         return;
-      };
+      }
 
-      if((gameboard.row1[0]==="X" && gameboard.row1[1]==="X" && gameboard.row1[2]==="X")
-      || (gameboard.row2[0]==="X" && gameboard.row2[1]==="X" && gameboard.row2[2]==="X")
-      || (gameboard.row3[0]==="X" && gameboard.row3[1]==="X" && gameboard.row3[2]==="X")
-      || (gameboard.row1[0]==="X" && gameboard.row2[0]==="X" && gameboard.row3[0]==="X")
-      || (gameboard.row1[1]==="X" && gameboard.row2[1]==="X" && gameboard.row3[1]==="X")
-      || (gameboard.row1[2]==="X" && gameboard.row2[2]==="X" && gameboard.row3[2]==="X")
-      || (gameboard.row1[0]==="X" && gameboard.row2[1]==="X" && gameboard.row3[2]==="X")
-      || (gameboard.row1[2]==="X" && gameboard.row2[1]==="X" && gameboard.row3[0]==="X")){
-        console.log("YOU WON!");
-        let overlay= document.querySelector(".overlay");
-        let winBanner = document.querySelector(".win-banner");
-        overlay.classList.add("active");
-        winBanner.classList.add("active");
-        return;
-      };
-
-      // computer picks
-      let computerRandNum = Math.floor(Math.random() * gameboardArray.length); //number computer picked
-      let computerChoice = gameboardArray[computerRandNum]; //html square computer picks
+      let computerRandNum = Math.floor(Math.random() * gameboardArray.length); 
+      let computerChoice = gameboardArray[computerRandNum]; 
 
       let orginalIndexCompChosen = computerChoice.getAttribute("id");
       gameboard.orginalIndexCompChosen = "O";
-    //   console.log(orginalIndexCompChosen);
 
       if (orginalIndexCompChosen === "row1[0]") {
         gameboard.row1[0] = "O";
@@ -133,27 +133,40 @@ const gameFlow=(()=>{
         gameboard.row3[1] = "O";
       } else if (orginalIndexCompChosen === "row3[2]") {
         gameboard.row3[2] = "O";
-      };
+      }
 
-      if((gameboard.row1[0]==="O" && gameboard.row1[1]==="O" && gameboard.row1[2]==="O")
-      || (gameboard.row2[0]==="O" && gameboard.row2[1]==="O" && gameboard.row2[2]==="O")
-      || (gameboard.row3[0]==="O" && gameboard.row3[1]==="O" && gameboard.row3[2]==="O")
-      || (gameboard.row1[0]==="O" && gameboard.row2[0]==="O" && gameboard.row3[0]==="O")
-      || (gameboard.row1[1]==="O" && gameboard.row2[1]==="O" && gameboard.row3[1]==="O")
-      || (gameboard.row1[2]==="O" && gameboard.row2[2]==="O" && gameboard.row3[2]==="O")
-      || (gameboard.row1[0]==="O" && gameboard.row2[1]==="O" && gameboard.row3[2]==="O")
-      || (gameboard.row1[2]==="O" && gameboard.row2[1]==="O" && gameboard.row3[0]==="O")){
-        console.log("YOU LOST!");
-        let overlay= document.querySelector(".overlay");
-        let loseBanner= document.querySelector(".lose-banner");
+      if (
+        (gameboard.row1[0] === "O" &&
+          gameboard.row1[1] === "O" &&
+          gameboard.row1[2] === "O") ||
+        (gameboard.row2[0] === "O" &&
+          gameboard.row2[1] === "O" &&
+          gameboard.row2[2] === "O") ||
+        (gameboard.row3[0] === "O" &&
+          gameboard.row3[1] === "O" &&
+          gameboard.row3[2] === "O") ||
+        (gameboard.row1[0] === "O" &&
+          gameboard.row2[0] === "O" &&
+          gameboard.row3[0] === "O") ||
+        (gameboard.row1[1] === "O" &&
+          gameboard.row2[1] === "O" &&
+          gameboard.row3[1] === "O") ||
+        (gameboard.row1[2] === "O" &&
+          gameboard.row2[2] === "O" &&
+          gameboard.row3[2] === "O") ||
+        (gameboard.row1[0] === "O" &&
+          gameboard.row2[1] === "O" &&
+          gameboard.row3[2] === "O") ||
+        (gameboard.row1[2] === "O" &&
+          gameboard.row2[1] === "O" &&
+          gameboard.row3[0] === "O")
+      ) {
+        let overlay = document.querySelector(".overlay");
+        let loseBanner = document.querySelector(".lose-banner");
         overlay.classList.add("active");
         loseBanner.classList.add("active");
         return;
-      };
-
-
-
-      console.log(gameboard);
+      }
 
       gameboardArray.splice(computerRandNum, 1);
       computerChoice.textContent = "O";
