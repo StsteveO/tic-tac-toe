@@ -7,6 +7,7 @@ body,
 html {
   height: 100%;
   margin: 0;
+  
 }
 :root {
   /* --custom name: value; */
@@ -58,4 +59,72 @@ td{
   text-align: center;
   font-size: xx-large;
   font-weight: bolder;
+}
+
+.in-game-btn{
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: 200ms;
+}
+
+.overlay.active{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.win-banner,
+.lose-banner,
+.tie-banner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  height: 20rem;
+  width: 40rem;
+  border: 2px solid black;
+  border-radius: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.win-banner.active,
+.lose-banner.active,
+.tie-banner.active{
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.win-banner{
+  background-color: lightblue;
+}
+.lose-banner{
+  background-color: rgb(255, 86, 86);
+}
+.tie-banner{
+  background-color: rgb(189, 189, 189);
+}
+
+.congrats,
+.you-lost,
+.tie{
+  font-size: 8rem;
+}
+.you-won, 
+.better-luck,
+.rematch{
+  font-size: 3rem;
 }

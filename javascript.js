@@ -84,6 +84,10 @@ const gameFlow=(()=>{
 
       if (gameboardArray.length === 0) {
         console.log("Game Over");
+        let overlay = document.querySelector(".overlay");
+        let tieBanner = document.querySelector(".tie-banner");
+        overlay.classList.add("active");
+        tieBanner.classList.add("active");
         return;
       };
 
@@ -95,7 +99,12 @@ const gameFlow=(()=>{
       || (gameboard.row1[2]==="X" && gameboard.row2[2]==="X" && gameboard.row3[2]==="X")
       || (gameboard.row1[0]==="X" && gameboard.row2[1]==="X" && gameboard.row3[2]==="X")
       || (gameboard.row1[2]==="X" && gameboard.row2[1]==="X" && gameboard.row3[0]==="X")){
-        console.log("YOU WON!")
+        console.log("YOU WON!");
+        let overlay= document.querySelector(".overlay");
+        let winBanner = document.querySelector(".win-banner");
+        overlay.classList.add("active");
+        winBanner.classList.add("active");
+        return;
       };
 
       // computer picks
@@ -134,8 +143,15 @@ const gameFlow=(()=>{
       || (gameboard.row1[2]==="O" && gameboard.row2[2]==="O" && gameboard.row3[2]==="O")
       || (gameboard.row1[0]==="O" && gameboard.row2[1]==="O" && gameboard.row3[2]==="O")
       || (gameboard.row1[2]==="O" && gameboard.row2[1]==="O" && gameboard.row3[0]==="O")){
-        console.log("YOU LOST!")
+        console.log("YOU LOST!");
+        let overlay= document.querySelector(".overlay");
+        let loseBanner= document.querySelector(".lose-banner");
+        overlay.classList.add("active");
+        loseBanner.classList.add("active");
+        return;
       };
+
+
 
       console.log(gameboard);
 
